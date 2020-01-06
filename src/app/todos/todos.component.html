@@ -1,0 +1,28 @@
+<main class="todoapp">
+  <header class="header">
+    <h1>todos</h1>
+    <app-todo-add 
+      (todoAdded)="add($event)"></app-todo-add>
+  </header>
+  <section class="main">
+    <app-complete-all></app-complete-all>
+    <app-todos-list 
+      (todoRemoved)="remove($event)"
+      [todos]="todosService.allTodos$ | async"></app-todos-list>
+  </section>
+  <footer class="footer">
+    <span class="todo-count"></span>
+    <ul class="filters">
+      <li>
+        <a href="#" class="selected">All</a>
+      </li>
+      <li>
+        <a href="#">Active</a>
+      </li>
+      <li>
+        <a href="#">Completed</a>
+      </li>
+    </ul>
+    <button class="clear-completed">Clear completed</button>
+  </footer>
+</main>

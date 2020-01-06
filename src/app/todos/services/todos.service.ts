@@ -11,18 +11,26 @@ import * as todoSelectors from '../state/todo.selectors';
 @Injectable()
 export class TodosService {
 
-  allTodos$: Observable<ITodo[]>;
+  get allTodos$(): Observable<ITodo[]> {
+    return this.store.select(todoSelectors.allTodos);
+  }
 
   constructor(
     private store: Store<ITodosState>,
-  ) {
-    this.allTodos$ = this.store.select(todoSelectors.allTodos);
-  }
+  ) {}
 
   addTodo(text: string): void {
     this.store.dispatch(TodoActions.addTodo({ text }));
   }
 
+  changeFilterMode(mode: FILTER_MODES): void {
+    this.store.dispatch(TodoActions.changeFilterMode({ mode }));
+  }
+
+  clearCompleted(): void {
+    this.store.dispatch(TodoActions.clearCompleted());
+  }
+  
   removeTodo(index: number): void {
     this.store.dispatch(TodoActions.removeTodo({ index }));
   }
@@ -39,11 +47,5 @@ export class TodosService {
     this.store.dispatch(TodoActions.updateTodo({ index, text }));
   }
 
-  changeFilterMode(mode: FILTER_MODES): void {
-    this.store.dispatch(TodoActions.changeFilterMode({ mode }));
-  }
 
-  clearCompleted(): void {
-    this.store.dispatch(TodoActions.clearCompleted());
-  }
 }
