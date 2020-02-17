@@ -4,25 +4,31 @@
     <app-todo-add 
       (todoAdded)="add($event)"></app-todo-add>
   </header>
-  <section class="main">
-    <app-complete-all></app-complete-all>
-    <app-todos-list 
-      (todoRemoved)="remove($event)"
-      [todos]="todosService.allTodos$ | async"></app-todos-list>
-  </section>
-  <footer class="footer">
-    <span class="todo-count"></span>
-    <ul class="filters">
-      <li>
-        <a href="#" class="selected">All</a>
-      </li>
-      <li>
-        <a href="#">Active</a>
-      </li>
-      <li>
-        <a href="#">Completed</a>
-      </li>
-    </ul>
-    <button class="clear-completed">Clear completed</button>
-  </footer>
+  <ng-container *ngIf="todosService.allTodos$ | async as todos;">
+    <section class="main">
+      <app-complete-all *ngIf="todos.length > 0"></app-complete-all>
+      <app-todos-list 
+        (todoRemoved)="remove($event)"
+        (todoToggleCompleted)="toggleComplete($event)"
+        [todos]="todos"></app-todos-list>
+    </section>
+    <footer *ngIf="todos.length > 0" class="footer">
+      <span class="todo-count">
+        <strong [textContent]="(todosService.activeTodos$ | async).length"></strong>
+        items left
+      </span>
+      <ul class="filters">
+        <li>
+          <a href="#" class="selected">All</a>
+        </li>
+        <li>
+          <a href="#">Active</a>
+        </li>
+        <li>
+          <a href="#">Completed</a>
+        </li>
+      </ul>
+      <button class="clear-completed">Clear completed</button>
+    </footer>
+  </ng-container>
 </main>

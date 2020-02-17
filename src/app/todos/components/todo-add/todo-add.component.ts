@@ -19,6 +19,9 @@ export class TodoAddComponent implements OnInit {
 
 
   add(todoText: string) {
+    if (todoText.trim() === '') {
+      return;
+    }
     this.todoAdded.emit(todoText);
     (this.todo.nativeElement as HTMLInputElement).value = '';
   }

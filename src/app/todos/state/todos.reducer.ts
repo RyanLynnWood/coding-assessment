@@ -48,6 +48,29 @@ export function todosReducer(state: ITodosState, action: Action) {
       ...existingState,
       todos: [...existingState.todos.filter(todo => !todo.completed)],
     })),
+
+    on(TodoActions.toggleAllCompleted, (existingState) => {
+
+      const completedToggleValue = existingState.todos.some(todo => !todo.completed);
+
+      const updatedTodos = existingState.todos.map(todo => ({...todo, completed: completedToggleValue }));
+
+      return Object.assign({}, existingState, {
+        todos: updatedTodos,
+      } as ITodosState);
+    }),
+
+    on(TodoActions.toggleCompleted, (existingState, { index }) => {
+      const updatedTodos = existingState.todos.map(todo => {
+        const completed = (todo.index === index) ? !todo.completed : todo.completed;
+        return {...todo, completed };
+      });
+
+      return Object.assign({}, existingState, {
+        todos: updatedTodos,
+      } as ITodosState);
+    }),
+
   )(state, action);
 }
 

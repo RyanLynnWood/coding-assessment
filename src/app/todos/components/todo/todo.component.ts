@@ -8,13 +8,22 @@ import { ITodo } from '@app/todos/interfaces';
 })
 export class TodoComponent implements OnInit {
 
-  @Input() todo: ITodo;
+  @Input()
+  todo: ITodo;
 
-  @Output() todoRemoved = new EventEmitter<ITodo>();
+  @Output()
+  todoToggleCompleted = new EventEmitter<ITodo>();
+
+  @Output()
+  todoRemoved = new EventEmitter<ITodo>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleCompleted() {
+    this.todoToggleCompleted.emit(this.todo);
   }
 
   remove() {

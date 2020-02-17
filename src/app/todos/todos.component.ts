@@ -21,6 +21,10 @@ export class TodosComponent implements OnInit {
     this.todosService.removeTodo(todo.index);
   }
 
+  toggleComplete(todo: ITodo) {
+    this.todosService.toggleComplete(todo.index);
+  }
+
   ngOnInit() {
   }
 }

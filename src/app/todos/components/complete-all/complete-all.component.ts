@@ -22,14 +22,14 @@ export class CompleteAllComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.todosService.allTodos$.subscribe(todos => {
-      this.multipleTodosExist = todos && todos.length > 1;
-      this.changeDetectorRef.markForCheck();
-    });
+    // this.subscription = this.todosService.allTodos$.subscribe(todos => {
+    //   this.multipleTodosExist = todos && todos.length > 1;
+    //   this.changeDetectorRef.markForCheck();
+    // });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   toggleCompleteAll(): void {

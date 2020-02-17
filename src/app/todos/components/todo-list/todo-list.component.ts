@@ -14,7 +14,13 @@ export class TodosListComponent {
 
   @Output() todoRemoved = new EventEmitter<ITodo>();
 
+  @Output() todoToggleCompleted = new EventEmitter<ITodo>();
+
   remove(todo: ITodo) {
     this.todoRemoved.emit(todo);
+  }
+
+  toggleComplete(todo: ITodo) {
+    this.todoToggleCompleted.emit(todo);
   }
 }

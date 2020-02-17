@@ -11,8 +11,16 @@ import * as todoSelectors from '../state/todo.selectors';
 @Injectable()
 export class TodosService {
 
+  get activeTodos$(): Observable<ITodo[]> {
+    return this.store.select(todoSelectors.activeTodos);
+  }
+
   get allTodos$(): Observable<ITodo[]> {
     return this.store.select(todoSelectors.allTodos);
+  }
+
+  get completedTodos$(): Observable<ITodo[]> {
+    return this.store.select(todoSelectors.completedTodos);
   }
 
   constructor(
@@ -30,7 +38,7 @@ export class TodosService {
   clearCompleted(): void {
     this.store.dispatch(TodoActions.clearCompleted());
   }
-  
+
   removeTodo(index: number): void {
     this.store.dispatch(TodoActions.removeTodo({ index }));
   }
